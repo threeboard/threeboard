@@ -9,9 +9,15 @@
     <meta name="viewport" content = "width = device-width, initial-scale = 1, user-scalable = no" />
     <link href="css/freeboard.min.css" rel="stylesheet" />
     <script src="js/freeboard.thirdparty.min.js"></script>
+
+    <script src="js/bundle.js"> </script>
+
     <script type="text/javascript">
         head.js("js/freeboard_plugins.min.js",
                 // *** Load more plugins here ***
+                "plugins/datasource-html-scraper-cheerio.js",
+                "plugins/datasource-html-scraper-jquery.js",
+                "plugins/datasource-atlassian-jql.js",
                 function(){
                     $(function()
                     { //DOM Ready
@@ -31,6 +37,7 @@
     </script>
 </head>
 <body>
+
 <div id="board-content">
     <img id="dash-logo" data-bind="attr:{src: header_image}, visible:header_image()">
     <div class="gridster responsive-column-width">
@@ -43,18 +50,23 @@
         <div id="admin-menu">
             <div id="board-tools">
                 <h1 id="board-logo" class="title bordered">freeboard</h1>
+            
                 <div id="board-actions">
+
                     <ul class="board-toolbar vertical">
-                        <li data-bind="click: loadDashboardFromLocalFile"><i id="full-screen-icon" class="icon-folder-open icon-white"></i><label id="full-screen">Load Freeboard</label></li>
-                        <li><i class="icon-download-alt icon-white"></i>
+                        <li data-bind="click: loadDashboardFromLocalFile"><i id="full-screen-icon" class="icon-folder-open icon-prefer"></i><label id="full-screen">Load Freeboard</label></li>
+                        <li><i class="icon-download-alt icon-prefer"></i>
                             <label data-bind="click: saveDashboardClicked">Save Freeboard</label>
                             <label style="display: none;" data-bind="click: saveDashboard" data-pretty="true">[Pretty]</label>
                             <label style="display: none;" data-bind="click: saveDashboard" data-pretty="false">[Minified]</label>
                         </li>
-                        <li id="add-pane" data-bind="click: createPane"><i class="icon-plus icon-white"></i><label>Add Pane</label></li>
+                        <li id="add-pane" data-bind="click: createPane"><i class="icon-plus icon-prefer"></i><label>Add Pane</label></li>
                     </ul>
                 </div>
             </div>
+
+        
+
             <div id="datasources">
                 <h2 class="title">DATASOURCES</h2>
 
@@ -75,9 +87,9 @@
                             <td data-bind="text: last_updated"></td>
                             <td>
                                 <ul class="board-toolbar">
-                                    <li data-bind="click: updateNow"><i class="icon-refresh icon-white"></i></li>
+                                    <li data-bind="click: updateNow"><i class="icon-refresh icon-prefer"></i></li>
                                     <li data-bind="pluginEditor: {operation: 'delete', type: 'datasource'}">
-                                        <i class="icon-trash icon-white"></i></li>
+                                        <i class="icon-trash icon-prefer"></i></li>
                                 </ul>
                             </td>
                         </tr>
@@ -90,16 +102,16 @@
     </div>
 	<div id="column-tools" class="responsive-column-width">
 		<ul class="board-toolbar left-columns">
-			<li class="column-tool add" data-bind="click: addGridColumnLeft"><span class="column-icon right"></span><i class="icon-arrow-left icon-white"></i></li>
-			<li class="column-tool sub" data-bind="click: subGridColumnLeft"><span class="column-icon left"></span><i class="icon-arrow-right icon-white"></i></li>
+			<li class="column-tool add" data-bind="click: addGridColumnLeft"><span class="column-icon right"></span><i class="icon-arrow-left icon-prefer"></i></li>
+			<li class="column-tool sub" data-bind="click: subGridColumnLeft"><span class="column-icon left"></span><i class="icon-arrow-right icon-prefer"></i></li>
 		</ul>
 		<ul class="board-toolbar right-columns">
-			<li class="column-tool sub" data-bind="click: subGridColumnRight"><span class="column-icon right"></span><i class="icon-arrow-left icon-white"></i></li>
-			<li class="column-tool add" data-bind="click: addGridColumnRight"><span class="column-icon left"></span><i class="icon-arrow-right icon-white"></i></li>
+			<li class="column-tool sub" data-bind="click: subGridColumnRight"><span class="column-icon right"></span><i class="icon-arrow-left icon-prefer"></i></li>
+			<li class="column-tool add" data-bind="click: addGridColumnRight"><span class="column-icon left"></span><i class="icon-arrow-right icon-prefer"></i></li>
 		</ul>
 	</div>
     <div id="toggle-header" data-bind="click: toggleEditing">
-        <i id="toggle-header-icon" class="icon-wrench icon-white"></i></div>
+        <i id="toggle-header-icon" class="icon-wrench icon-prefer"></i></div>        
 </header>
 
 <div style="display:hidden">
@@ -107,19 +119,21 @@
     </ul>
 </div>
 
+
+
 <script type="text/html" id="pane-template">
     <li data-bind="pane: true">
         <header>
             <h1 data-bind="text: title"></h1>
             <ul class="board-toolbar pane-tools">
                 <li data-bind="pluginEditor: {operation: 'add', type: 'widget'}">
-                    <i class="icon-plus icon-white"></i>
+                    <i class="icon-plus icon-prefer"></i>
                 </li>
                 <li data-bind="pluginEditor: {operation: 'edit', type: 'pane'}">
-                    <i class="icon-wrench icon-white"></i>
+                    <i class="icon-wrench icon-prefer"></i>
                 </li>
                 <li data-bind="pluginEditor: {operation: 'delete', type: 'pane'}">
-                    <i class="icon-trash icon-white"></i>
+                    <i class="icon-trash icon-prefer"></i>
                 </li>
             </ul>
         </header>
@@ -129,18 +143,54 @@
                 <div class="sub-section-tools">
                     <ul class="board-toolbar">
                         <!-- ko if:$parent.widgetCanMoveUp($data) -->
-                        <li data-bind="click:$parent.moveWidgetUp"><i class="icon-chevron-up icon-white"></i></li>
+                        <li data-bind="click:$parent.moveWidgetUp"><i class="icon-chevron-up icon-prefer"></i></li>
                         <!-- /ko -->
                         <!-- ko if:$parent.widgetCanMoveDown($data) -->
-                        <li data-bind="click:$parent.moveWidgetDown"><i class="icon-chevron-down icon-white"></i></li>
+                        <li data-bind="click:$parent.moveWidgetDown"><i class="icon-chevron-down icon-prefer"></i></li>
                         <!-- /ko -->
-                        <li data-bind="pluginEditor: {operation: 'edit', type: 'widget'}"><i class="icon-wrench icon-white"></i></li>
-                        <li data-bind="pluginEditor: {operation: 'delete', type: 'widget'}"><i class="icon-trash icon-white"></i></li>
+                        <li data-bind="pluginEditor: {operation: 'edit', type: 'widget'}"><i class="icon-wrench icon-prefer"></i></li>
+                        <li data-bind="pluginEditor: {operation: 'delete', type: 'widget'}"><i class="icon-trash icon-prefer"></i></li>
                     </ul>
                 </div>
             </div>
         </section>
     </li>
+</script>
+
+<div class="mode" style="display:inline">
+    <div class="mode-toggle"></div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        const btn = document.querySelector('.mode-toggle'); 
+        const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+        const currentTheme = localStorage.getItem('theme'); 
+
+        if (currentTheme=="dark"){
+            document.body.classList.add("dark-theme"); 
+        } else if (currentTheme=="light"){
+            document.body.classList.add("light-theme"); 
+        }
+
+        btn.addEventListener("click", function(){
+
+            if(document.body.classList.length == 0){
+                document.body.classList.add(( prefersDarkScheme.matches ? 'dark-theme' : 'light-theme'));
+            }
+
+            document.body.classList.toggle("dark-theme");
+            document.body.classList.toggle("light-theme");            
+
+            var theme=(document.body.classList.contains("light-theme") ? "light": "dark");
+
+            console.log('local store ', theme); 
+            localStorage.setItem("theme", theme); 
+        });
+
+    });
+    
 </script>
 
 </body>
