@@ -2389,6 +2389,82 @@ input:-moz-placeholder, textarea:-moz-placeholder {
 	height: 100% !important;
 }
 
+.tw-value{
+	font-family: "HelveticaNeue-UltraLight", "Helvetica Neue Ultra Light", "Helvetica Neue", sans-serif;
+	font-weight:100;
+}
+
+/* Toggle dark mode */
+.mode{ 
+	position:fixed;
+	bottom:0px;
+	left:0px;
+	padding:10px;
+}
+
+.mode-toggle{
+	height:35px;
+	width:30px;
+}
+
+body.dark-theme .mode-toggle{
+	background-image: url('../../../img/lightbulb-on.png');
+}
+.mode-toggle{
+	background-image: url('../../../img/lightbulb-off.png');
+}
+
+body.dark-theme{
+	background-color: #101214;
+	color: #8b8b8b;
+}
+
+body.dark-theme .title{
+	color: #d3d4d4;
+}
+
+body.dark-theme .title.bordered{
+	border: solid 3px #d3d4d4;
+}
+
+body.dark-theme .table td{
+	color: #d3d4d4;
+}
+
+body.dark-theme .column-icon{
+	background-color: white;
+}
+
+body.dark-theme .gridster .gs_w {
+	background: #2a2a2a;	
+}
+
+body.dark-theme .gridster header {
+	background-color: #272727;	 
+}
+
+body.dark-theme .sub-section {
+	border-bottom: solid 1px #363636;	
+}
+
+body.dark-theme .tw-value{
+	font-family: "HelveticaNeue-UltraLight", "Helvetica Neue Ultra Light", "Helvetica Neue", sans-serif;
+	color: #d3d4d4;
+	font-weight:100;
+}
+
+body.dark-theme #admin-bar{
+	background-color: #313131;		
+}
+
+body.dark-theme #toggle-header{
+	background-color: #313131;
+}
+
+body.dark-theme .icon-prefer{
+	background-image: url("../../../img/glyphicons-halflings-white.png");
+}
+
 /* Use OS dark mode preference */
 @media (prefers-color-scheme: dark){
 	body{
@@ -2442,5 +2518,58 @@ input:-moz-placeholder, textarea:-moz-placeholder {
 
 	.mode-toggle{
 		background-image: url('../../../img/lightbulb-on.png');
+	}
+
+	body.light-theme{
+		background-color: #fff;
+		color: #00000;
+	}
+
+	body.light-theme .title{
+		color: #000;
+	}
+
+	body.light-theme .title.bordered{
+		border: solid 3px #000; 
+	}
+
+	body.light-theme .table td{
+		color: #000;
+	}
+
+	body.light-theme .column-icon{
+		background-color: #000;
+	}
+
+	body.light-theme .gridster .gs_w {
+		background: #fff;	
+	}
+
+	body.light-theme .gridster header {
+		background-color: #ddd;	 
+	}
+
+	body.light-theme .sub-section {
+		border-bottom: solid 1px #eeeeee;	
+	}	
+
+	body.light-theme .tw-value{
+		color: #000;
+	}	
+
+	body.light-theme #admin-bar{
+		background-color: #fff;		
+	}
+
+	body.light-theme #toggle-header{
+		background-color: #ffffff;
+	}	
+
+	body.light-theme .icon-prefer{
+		background-image: url("../../../img/glyphicons-halflings.png");
+	}
+
+	body.light-theme .mode-toggle{
+		background-image: url('../../../img/lightbulb-off.png');
 	}
 }

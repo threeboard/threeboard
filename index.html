@@ -9,9 +9,15 @@
     <meta name="viewport" content = "width = device-width, initial-scale = 1, user-scalable = no" />
     <link href="css/freeboard.min.css" rel="stylesheet" />
     <script src="js/freeboard.thirdparty.min.js"></script>
+
+    <script src="js/bundle.js"> </script>
+
     <script type="text/javascript">
         head.js("js/freeboard_plugins.min.js",
                 // *** Load more plugins here ***
+                "plugins/datasource-html-scraper-cheerio.js",
+                "plugins/datasource-html-scraper-jquery.js",
+                "plugins/datasource-atlassian-jql.js",
                 function(){
                     $(function()
                     { //DOM Ready
@@ -113,6 +119,8 @@
     </ul>
 </div>
 
+
+
 <script type="text/html" id="pane-template">
     <li data-bind="pane: true">
         <header>
@@ -148,5 +156,42 @@
         </section>
     </li>
 </script>
+
+<div class="mode" style="display:inline">
+    <div class="mode-toggle"></div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        const btn = document.querySelector('.mode-toggle'); 
+        const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+        const currentTheme = localStorage.getItem('theme'); 
+
+        if (currentTheme=="dark"){
+            document.body.classList.add("dark-theme"); 
+        } else if (currentTheme=="light"){
+            document.body.classList.add("light-theme"); 
+        }
+
+        btn.addEventListener("click", function(){
+
+            if(document.body.classList.length == 0){
+                document.body.classList.add(( prefersDarkScheme.matches ? 'dark-theme' : 'light-theme'));
+            }
+
+            document.body.classList.toggle("dark-theme");
+            document.body.classList.toggle("light-theme");            
+
+            var theme=(document.body.classList.contains("light-theme") ? "light": "dark");
+
+            console.log('local store ', theme); 
+            localStorage.setItem("theme", theme); 
+        });
+
+    });
+    
+</script>
+
 </body>
 </html>

@@ -60,9 +60,13 @@
 
 		freeboard.addStyle('.sparkline-legend', "margin:5px;");
 
-        // Use OS dark mode preference
+        //BT Default label to black color
 		freeboard.addStyle('.sparkline-legend-value','color:#000; font:10px arial,san serif; float:left; overflow:hidden; width:50%;');
-        freeboard.addStyle('@media (prefers-color-scheme: dark)',".sparkline-legend-value{color:#fff;}"
+        freeboard.addStyle('body.dark-theme .sparkline-legend-value','color:#fff;');
+		freeboard.addStyle('.sparkline-legend-value span', 'font-weight:bold; padding-right:5px;');
+
+        //BT dark mode support
+        freeboard.addStyle('@media (prefers-color-scheme: dark)',".sparkline-legend-value{color:#fff;} body.light-theme .spark-legend-value{color:#000;}"
         );
 	}
  
